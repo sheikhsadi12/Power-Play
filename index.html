@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Class — Video Lessons</title>
+
+<link rel="manifest" href="/Power-Play/manifest.json">
+<meta name="theme-color" content="#05070d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon.png">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">CL</div>
+    <div>
+      <div class="title"><h3>Class Video</h3></div>
+    </div>
+  </div>
+  <div id="themeBtn" class="theme-toggle" title="Toggle theme" style="cursor:pointer; padding:8px">
+    <span class="material-icons">dark_mode</span>
+  </div>
+</header>
+
+<div id="gate" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#111;padding:30px;border-radius:16px;text-align:center;border:1px solid #333;width:300px">
+    <h3 style="color:white;margin-top:0">🔒 Enter Password</h3>
+    <input type="password" id="pwd" placeholder="Password" style="width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:white;margin:10px 0"/>
+    <button id="unlockBtn" style="width:100%;padding:10px;border-radius:8px;border:none;background:#ff3b3b;color:white;font-weight:bold;cursor:pointer">Unlock</button>
+    <p id="err" style="color:#f88;display:none;margin-top:10px;font-size:13px">Wrong password!</p>
+  </div>
+</div>
+
+<div id="homePage" class="hidden">
+  <div id="page">
+    <h2>📚 Select Subject</h2>
+    <div class="grid" id="subjectsGrid">
+      <div class="card" data-subject="Physics">Physics</div>
+      <div class="card" data-subject="Chemistry">Chemistry</div>
+      <div class="card" data-subject="Math">Math</div>
+      <div class="card" data-subject="Biology">Biology</div>
+      <div class="card" data-subject="English">English</div>
+      <div class="card" data-subject="ICT">ICT</div>
+      <div class="card" data-subject="Bangla">Bangla</div>
+    </div>
+  </div>
+</div>
+
+<div id="paperPage" class="hidden">
+  <div id="page">
+    <div style="max-width:1200px;margin:20px auto;padding:0 20px">
+      <button class="btn nav-back-btn" onclick="history.back()"><span class="material-icons" style="font-size:18px">arrow_back</span> Home</button>
+    </div>
+    <h2 id="paperTitleMain">Select Paper</h2>
+    <div class="grid" id="papersGrid"></div>
+  </div>
+</div>
+
+<div id="chapterPage" class="hidden">
+  <div id="page">
+    <div style="max-width:1200px;margin:20px auto;padding:0 20px">
+      <button class="btn nav-back-btn" onclick="history.back()"><span class="material-icons" style="font-size:18px">arrow_back</span> Papers</button>
+    </div>
+    <h2 id="chapterTitleMain">Select Chapter</h2>
+    <div class="grid" id="chaptersGrid"></div>
+  </div>
+</div>
+
+<div id="playerPage" class="hidden">
+  <div id="page">
+    <div style="max-width:1400px;margin:20px auto;padding:0 16px">
+      <!-- Changed to call backFromPlayer() so we stop video before navigating back -->
+      <button class="btn nav-back-btn" onclick="backFromPlayer()"><span class="material-icons" style="font-size:18px">arrow_back</span> Back</button>
+    </div>
+    
+    <div class="app">
+      <aside class="sidebar">
+        <div style="font-weight:bold;display:flex;justify-content:space-between;align-items:center; margin-bottom:10px">
+          <div> Playlist <span style="font-weight:normal;font-size:12px;color:var(--muted)" id="subTitleSmall"></span></div>
+          <div style="font-size:12px;color:var(--muted)"><span id="totalCount">0</span> Videos</div>
+        </div>
+        
+        <div style="display:flex; gap:8px; margin-bottom:10px">
+            <input id="searchInput" type="search" placeholder="Search..." style="flex:1;padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.05);color:var(--text);font-family:inherit"/>
+        </div>
+        <div style="display:flex; gap:8px; margin-bottom:4px">
+           <button class="btn" id="shuffleBtn" style="flex:1;justify-content:center;font-size:12px"><span class="material-icons" style="font-size:16px">shuffle</span> Shuffle</button>
+           <button class="btn" id="clearBtn" style="flex:1;justify-content:center;font-size:12px"><span class="material-icons" style="font-size:16px">refresh</span> Reset</button>
+        </div>
+
+        <div class="playlist" id="playlist" tabindex="0" aria-label="Video list"></div>
+      </aside>
+
+      <section class="player-area">
+        <div class="player-wrap">
+          <div class="stage">
+            <iframe id="yt-player" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          
+          <div class="video-info">
+            <h3 id="videoTitle" class="v-title">Select a video to play</h3>
+            <div class="v-meta" id="videoMeta">—</div>
+            
+            <div class="controls-row">
+               <div style="display:flex;align-items:center;gap:15px">
+                  <button class="ctrl-btn" id="prevBtn" title="Previous Video">
+                    <span class="material-icons">skip_previous</span>
+                  </button>
+                  
+                  <button class="ctrl-btn" id="nextBtn" title="Next Video">
+                    <span class="material-icons">skip_next</span>
+                  </button>
+               </div>
+               <div style="font-size:12px;color:var(--muted);margin-top:-10px">Class Player</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

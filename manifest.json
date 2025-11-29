@@ -1,0 +1,41 @@
+{
+  "name": "Power-Play",
+  "short_name": "Power Play",
+  "id": "class-video-app",
+  "description": "ClassApp — Subjects → Papers → Chapters → Video Lessons",
+
+  "start_url": "/Power-Play/index.html",
+  "scope": "/Power-Play/",
+  "display": "standalone",
+
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
+  "lang": "bn",
+
+  "icons": [
+    { "src": "/Power-Play/icon.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/Power-Play/icon.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/Power-Play/icon.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Open Physics",
+      "short_name": "Physics",
+      "url": "/index.html#physics",
+      "icons": [{ "src": "/Power-Play/icon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Open Chemistry",
+      "short_name": "Chemistry",
+      "url": "/index.html#chemistry",
+      "icons": [{ "src": "/Power-Play/icon.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Resume Last Video",
+      "short_name": "Resume",
+      "url": "/index.html#continue",
+      "icons": [{ "src": "/Power-Play/icon.png", "sizes": "96x96" }]
+    }
+  ]
+}
